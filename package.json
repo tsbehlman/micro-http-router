@@ -24,7 +24,6 @@
     "test-listen": "^1.1.0"
   },
   "dependencies": {
-    "assert": "^1.4.1",
     "micro": "^9.3.2",
     "radix-router": "^3.0.1"
   }
