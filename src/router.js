@@ -47,7 +47,7 @@ module.exports = exports = class Router {
         if (route === null) {
             route = {
                 path: options.path,
-                methods: {}
+                methods: new Map()
             };
 
             this.radixRouter.insert(route);
@@ -58,12 +58,12 @@ module.exports = exports = class Router {
             before: undefined
         }
 
-        route.methods[options.method.toUpperCase()] = method;
+        route.methods.set(options.method.toUpperCase(), method);
 
         if (options.before) {
             assert(typeof options.before === 'function');
 
-            route.methods[options.method.toUpperCase()].before = options.before;
+            method.before = options.before;
         }
 
         return this;
@@ -149,7 +149,7 @@ module.exports = exports = class Router {
 
         if (route !== null && req.method !== undefined) {
             try {
-                const methodObj = route.methods[req.method];
+                const methodObj = route.methods.get(req.method);
                 // Set the params if we have any
                 if (route.params) req.params = route.params;
 
