@@ -28,7 +28,7 @@ const routeOptionsHelper = function (path, method, fn1, fn2) {
 module.exports = exports = class Router {
     constructor(options) {
         // Add new instance of RadixRouter
-        this[routerSymbol] = new RadixRouter({ strict: options && options.strict });
+        this.radixRouter = new RadixRouter({ strict: options && options.strict });
 
         this.debug = options && options.debug;
     }
@@ -43,17 +43,14 @@ module.exports = exports = class Router {
         assert(options.method, 'You must provide a valid route handler function.');
         assert(options.handler, 'You must provide a valid route handler function.');
 
-        const existingRoute = this[routerSymbol].lookup(options.path);
-        let route = {};
-        if (existingRoute !== null) {
-            route = existingRoute;
-        } else {
+        let route = this.radixRouter.lookup(options.path);
+        if (route === null) {
             route = {
                 path: options.path,
                 methods: {}
             };
 
-            this[routerSymbol].insert(route);
+            this.radixRouter.insert(route);
         };
 
         const method = {
@@ -148,7 +145,7 @@ module.exports = exports = class Router {
      * @param {object} res http.serverResponse
      */
     async handle(req, res) {
-        const route = this[routerSymbol].lookup(req.url);
+        const route = this.radixRouter.lookup(req.url);
 
         if (route !== null && req.method !== undefined) {
             try {
