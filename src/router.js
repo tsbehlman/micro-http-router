@@ -60,12 +60,12 @@ module.exports = exports = class Router {
             handler: options.handler
         }
 
-        route.methods[options.method.toLowerCase()] = method;
+        route.methods[options.method.toUpperCase()] = method;
 
         if (options.before) {
             assert(typeof options.before === 'function');
 
-            route.methods[options.method.toLowerCase()].before = options.before;
+            route.methods[options.method.toUpperCase()].before = options.before;
         }
 
         return this;
@@ -149,9 +149,9 @@ module.exports = exports = class Router {
     async handle(req, res) {
         const route = this[routerSymbol].lookup(req.url);
 
-        if (route && req.method.toLowerCase() in route.methods) {
+        if (route && req.method in route.methods) {
             try {
-                const methodObj = route.methods[req.method.toLowerCase()];
+                const methodObj = route.methods[req.method];
                 // Set the params if we have any
                 if (route.params) req.params = route.params;
 
