@@ -45,7 +45,7 @@ module.exports = exports = class Router {
 
         const existingRoute = this[routerSymbol].lookup(options.path);
         let route = {};
-        if (existingRoute) {
+        if (existingRoute !== null) {
             route = existingRoute;
         } else {
             route = {
@@ -150,7 +150,7 @@ module.exports = exports = class Router {
     async handle(req, res) {
         const route = this[routerSymbol].lookup(req.url);
 
-        if (route && req.method !== undefined) {
+        if (route !== null && req.method !== undefined) {
             try {
                 const methodObj = route.methods[req.method];
                 // Set the params if we have any
