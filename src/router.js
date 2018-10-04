@@ -57,7 +57,8 @@ module.exports = exports = class Router {
         };
 
         const method = {
-            handler: options.handler
+            handler: options.handler,
+            before: undefined
         }
 
         route.methods[options.method.toUpperCase()] = method;
@@ -149,7 +150,7 @@ module.exports = exports = class Router {
     async handle(req, res) {
         const route = this[routerSymbol].lookup(req.url);
 
-        if (route && req.method in route.methods) {
+        if (route && req.method !== undefined) {
             try {
                 const methodObj = route.methods[req.method];
                 // Set the params if we have any
