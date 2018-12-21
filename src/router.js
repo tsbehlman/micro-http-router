@@ -157,9 +157,7 @@ module.exports = exports = class Router {
                 if (methodObj.before) methodObj.before(req, res);
 
                 // Finally, handle the result
-                const result = await methodObj.handler(req, res);
-                send(res, 200, result);
-                return;
+                return await methodObj.handler(req, res);
             } catch (e) {
                 let data = null;
                 if (this.debug)
