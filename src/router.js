@@ -145,13 +145,17 @@ module.exports = exports = class Router {
      * @param {object} res http.serverResponse
      */
     async handle(req, res) {
-        const route = this.radixRouter.lookup(req.url);
+        const reqURL = new URL(req.url, 'http://localhost/');
+        const route = this.radixRouter.lookup(reqURL.pathname);
 
         if (route !== null && req.method !== undefined) {
             try {
                 const methodObj = route.methods.get(req.method);
                 // Set the params if we have any
                 if (route.params) req.params = route.params;
+
+                // set query parameters as well
+                req.searchParams = reqURL.searchParams;
 
                 // Run the before function if one is configured
                 if (methodObj.before) methodObj.before(req, res);
