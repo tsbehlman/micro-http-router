@@ -1,4 +1,4 @@
-const { test } = require('ava');
+const test = require('ava');
 const micro = require('micro');
 const listen = require('test-listen');
 const request = require('request-promise');

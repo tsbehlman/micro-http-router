@@ -14,17 +14,17 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.22.0",
-    "coveralls": "^2.13.3",
-    "micro-dev": "^1.4.0",
-    "nyc": "^11.9.0",
-    "request": "^2.87.0",
-    "request-promise": "^4.2.2",
-    "sleep-promise": "^2.0.0",
+    "ava": "^2.4.0",
+    "coveralls": "^3.0.7",
+    "micro-dev": "^3.0.0",
+    "nyc": "^14.1.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "sleep-promise": "^8.0.1",
     "test-listen": "^1.1.0"
   },
   "dependencies": {
-    "micro": "^9.3.2",
+    "micro": "^9.3.4",
     "radix-router": "^3.0.1"
   }
 }
